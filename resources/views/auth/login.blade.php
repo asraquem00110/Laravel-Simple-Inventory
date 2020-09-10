@@ -218,10 +218,8 @@ display: none !important;
 
 
 <script>
-    
-    $("#email").val("admin@gmail.com")
-    $("#password").val("password")
-
+    document.getElementById("email").value = "admin@gmail.com"
+    document.getElementById("password").value = "password"
 </script>
 
 </body>
