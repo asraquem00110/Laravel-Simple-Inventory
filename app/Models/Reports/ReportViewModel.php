@@ -4,7 +4,7 @@ namespace App\Models\Reports;
 
 use Spatie\ViewModels\ViewModel;
 use App\Models\Outbound\Outbound;
-use App\Models\ItemLogs\ItemLogs;
+use App\Models\ItemLogs\Itemlogs;
 use App\Models\Item\getItemData;
 use App\Models\Client\getAll;
 use App\Models\ItemList\Itemlist;
@@ -75,7 +75,7 @@ class ReportViewModel extends ViewModel
     }
 
     public function getOutboundLogs($refdate): object {
-    	$res = ItemLogs::with(['item','itemlist'])
+    	$res = Itemlogs::with(['item','itemlist'])
                 ->where('event','REDUCE')
                 ->whereRaw('DATE(created_at) = ?',[$refdate])
                 ->get();
@@ -99,7 +99,7 @@ class ReportViewModel extends ViewModel
 
     public function getOutboundsItem_Logs($refdate,$item): object {
 
-        $res = ItemLogs::with(['item','itemlist'])
+        $res = Itemlogs::with(['item','itemlist'])
                 ->where('event','REDUCE')
                 ->whereRaw('DATE(created_at) = ? AND item_id = ?',[$refdate,$item])
                 ->get();
@@ -124,7 +124,7 @@ class ReportViewModel extends ViewModel
 
     public function getOutboundsItem_Logs_PerItem($item,$datefrom,$dateto): object {
 
-        $res = ItemLogs::with(['item','itemlist'])
+        $res = Itemlogs::with(['item','itemlist'])
                 ->where('event','REDUCE')
                 ->whereRaw('item_id = ?',[$item])
                 ->whereBetween(DB::Raw("DATE(created_at)"),[$datefrom,$dateto])
@@ -178,7 +178,7 @@ class ReportViewModel extends ViewModel
 
     public function getInboundsItem_Logs_PerItem($item,$datefrom,$dateto): object {
 
-        $res = ItemLogs::with(['item','itemlist'])
+        $res = Itemlogs::with(['item','itemlist'])
                 ->where('event','<>','REDUCE')
                 ->whereRaw('item_id = ?',[$item])
                 ->whereBetween(DB::Raw("DATE(created_at)"),[$datefrom,$dateto])
@@ -207,7 +207,7 @@ class ReportViewModel extends ViewModel
     }
 
     public function getInboundLogs($refdate): object {
-        $res = ItemLogs::with(['item','itemlist'])
+        $res = Itemlogs::with(['item','itemlist'])
                 ->where('event','<>','REDUCE')
                 ->whereRaw('DATE(created_at) = ?',[$refdate])
                 ->get();
