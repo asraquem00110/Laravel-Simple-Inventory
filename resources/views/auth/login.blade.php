@@ -217,7 +217,12 @@ display: none !important;
 
 
 
+<script>
+    
+    $("#email").val("admin@gmail.com")
+    $("#password").val("password")
 
+</script>
 
 </body>
 </html>
